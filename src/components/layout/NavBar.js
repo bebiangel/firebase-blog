@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Layout, Menu, Avatar } from "antd";
+import { Layout, Menu } from "antd";
 import SignedInLinks from "./SignedInLinks";
+import SignedOutLinks from "./SignedOutLinks";
 
 const { Header } = Layout;
 
@@ -22,6 +23,7 @@ const NavBar = () => {
       </Menu>
 
       <SignedInLinks />
+      <SignedOutLinks />
     </Header>
   );
 };
