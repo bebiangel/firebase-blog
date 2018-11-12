@@ -1,18 +1,6 @@
 import React from "react";
-import { List, Icon, Avatar } from "antd";
-
-const listData = [];
-for (let i = 0; i < 3; i++) {
-  listData.push({
-    href: "http://ant.design",
-    title: `ant design part ${i}`,
-    avatar: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    description:
-      "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-    content:
-      "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently."
-  });
-}
+import { List, Icon } from "antd";
+import { Link } from "react-router-dom";
 
 const IconText = ({ type, text }) => (
   <span>
@@ -21,28 +9,36 @@ const IconText = ({ type, text }) => (
   </span>
 );
 
-const ProjectList = () => {
+const ProjectList = ({ projects }) => {
+  //
   return (
     <List
       itemLayout="vertical"
       size="large"
-      dataSource={listData}
+      dataSource={projects}
       footer={
         <div>
           <b>ant design</b> footer part
         </div>
       }
-      renderItem={item => (
+      renderItem={project => (
         <List.Item
-          key={item.title}
+          key={project.title}
           actions={[
             <IconText type="star-o" text="156" />,
             <IconText type="like-o" text="156" />,
             <IconText type="message" text="2" />
           ]}
         >
-          <List.Item.Meta title={item.title} description={item.description} />
-          {item.content}
+          <Link to={`/project/${project.id}`} key={project.id}>
+            <List.Item.Meta
+              title={project.title}
+              description={project.content}
+            />
+            <p style={{ fontSize: "0.5rem" }}>
+              Posted by {project.authorFirstName} {project.authorLastName}
+            </p>
+          </Link>
         </List.Item>
       )}
     />

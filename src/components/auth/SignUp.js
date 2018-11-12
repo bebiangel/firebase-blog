@@ -1,42 +1,32 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { signIn } from "../../store/actions/authActions";
 import { Form, Icon, Input, Button, Checkbox } from "antd";
 
 const FormItem = Form.Item;
 
-class SignUp extends Component {
+class SignIn extends Component {
   //
   constructor(props) {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      firstName: "",
+      lastName: ""
     };
   }
 
-  handleChange = e => {
-    //
-    this.setState({
-      [e.target.id]: e.target.value
-    });
-  };
-
   handleSubmit = e => {
     e.preventDefault();
-    this.props.signIn(this.state);
-    // this.props.form.validateFields((err, values) => {
-    //   if (!err) {
-    //     console.log("Received values of form: ", values);
-    //     this.props.signIn(values);
-    //   }
-    // });
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log("Received values of form: ", values);
+      }
+    });
   };
 
   render() {
     //
     const { getFieldDecorator } = this.props.form;
-    const { authError } = this.props;
 
     return (
       <Form
@@ -45,13 +35,12 @@ class SignUp extends Component {
       >
         <FormItem>
           {getFieldDecorator("email", {
-            rules: [{ required: true, message: "Please input your Email!" }]
+            rules: [{ required: true, message: "Please input your username!" }]
           })(
             <Input
               id="email"
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="Email"
-              onChange={this.handleChange}
             />
           )}
         </FormItem>
@@ -65,40 +54,44 @@ class SignUp extends Component {
               prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
               type="password"
               placeholder="Password"
-              onChange={this.handleChange}
             />
           )}
         </FormItem>
 
         <FormItem>
-          {getFieldDecorator("remember", {
-            valuePropName: "checked",
-            initialValue: true
-          })(<Checkbox>Remember me</Checkbox>)}
-          <a style={{ float: "right" }} href="">
-            Forgot password
-          </a>
+          {getFieldDecorator("firstName", {
+            rules: [
+              { required: true, message: "Please input your First Name!" }
+            ]
+          })(
+            <Input
+              id="firstName"
+              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+              placeholder="First Name"
+            />
+          )}
+        </FormItem>
+
+        <FormItem>
+          {getFieldDecorator("lastName", {
+            rules: [{ required: true, message: "Please input your Last Name!" }]
+          })(
+            <Input
+              id="lastName"
+              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+              placeholder="Last Name"
+            />
+          )}
+        </FormItem>
+
+        <FormItem>
           <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
             Log in
           </Button>
         </FormItem>
-        {authError && <p>{authError}</p>}
       </Form>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  authError: state.auth.authError
-});
-
-const mapDispatchToProps = dispatch => ({
-  signIn: cred => dispatch(signIn(cred))
-});
-
-export default Form.create()(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(SignUp)
-);
+export default Form.create()(SignIn);

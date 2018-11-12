@@ -6,7 +6,10 @@ import NavBar from "./components/layout/NavBar";
 import Dashboard from "./components/dashboard/Dashboard";
 import ProjectDetails from "./components/projects/ProjectDetail";
 import SignIn from "./components/auth/SignIn";
+import SignUp from "./components/auth/SignUp";
+
 import { Layout } from "antd";
+import CreateProject from "./components/projects/CreateProject";
 const { Content } = Layout;
 
 class App extends Component {
@@ -28,6 +31,8 @@ class App extends Component {
                 <Route exact path="/" component={Dashboard} />
                 <Route path="/project/:id" component={ProjectDetails} />
                 <Route path="/signin" component={SignIn} />
+                <Route path="/signup" component={SignUp} />
+                <Route path="/create" component={CreateProject} />
               </Switch>
             </Content>
           </Layout>
