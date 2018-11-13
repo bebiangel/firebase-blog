@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { signIn } from "../../store/actions/authActions";
+import { Redirect } from "react-router-dom";
 import { Form, Icon, Input, Button, Checkbox } from "antd";
+import { signIn } from "../../store/actions/authActions";
 
 const FormItem = Form.Item;
 
@@ -36,7 +37,9 @@ class SignUp extends Component {
   render() {
     //
     const { getFieldDecorator } = this.props.form;
-    const { authError } = this.props;
+    const { authError, auth } = this.props;
+
+    if (auth.uid) return <Redirect to="/" />;
 
     return (
       <Form
@@ -89,6 +92,7 @@ class SignUp extends Component {
 }
 
 const mapStateToProps = state => ({
+  auth: state.firebase.auth,
   authError: state.auth.authError
 });
 

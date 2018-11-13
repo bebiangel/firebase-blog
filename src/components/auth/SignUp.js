@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import { Form, Icon, Input, Button, Checkbox } from "antd";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { Form, Icon, Input, Button } from "antd";
+import { signUp } from "../../store/actions/authActions";
 
 const FormItem = Form.Item;
 
-class SignIn extends Component {
+class SignUp extends Component {
   //
   constructor(props) {
     super(props);
@@ -20,6 +23,7 @@ class SignIn extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
+        this.props.signUp(this.state);
       }
     });
   };
@@ -27,6 +31,9 @@ class SignIn extends Component {
   render() {
     //
     const { getFieldDecorator } = this.props.form;
+    const { auth } = this.props;
+
+    if (auth.uid) return <Redirect to="/" />;
 
     return (
       <Form
@@ -86,7 +93,7 @@ class SignIn extends Component {
 
         <FormItem>
           <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-            Log in
+            Sign Up
           </Button>
         </FormItem>
       </Form>
@@ -94,4 +101,17 @@ class SignIn extends Component {
   }
 }
 
-export default Form.create()(SignIn);
+const mapStateToProps = state => ({
+  auth: state.firebase.auth
+});
+
+const mapDispatchToProps = dispatch => ({
+  signUp: newUser => dispatch(signUp(newUser))
+});
+
+export default Form.create()(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SignUp)
+);

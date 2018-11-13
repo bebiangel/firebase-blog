@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Form, Icon, Input, Button, Checkbox } from "antd";
-import { createProject } from "../../store/actions/projectActions";
+import { Form, Icon, Input, Button } from "antd";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { createProject } from "../../store/actions/projectActions";
 
 const FormItem = Form.Item;
 
@@ -35,6 +36,9 @@ class CreateProject extends Component {
   render() {
     //
     const { getFieldDecorator } = this.props.form;
+    const { auth } = this.props;
+
+    if (!auth.uid) return <Redirect to="/signin" />;
 
     return (
       <Form
@@ -76,6 +80,9 @@ class CreateProject extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  auth: state.firebase.auth
+});
 
 const mapDispatchToProps = dispatch => ({
   createProject: project => dispatch(createProject(project))
@@ -83,7 +90,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default Form.create()(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(CreateProject)
 );
