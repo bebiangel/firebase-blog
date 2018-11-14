@@ -8,6 +8,7 @@ import { Menu, Avatar } from "antd";
 const SignedInLinks = props => {
   //
   const { profile } = props;
+
   return (
     <Menu
       theme="dark"
