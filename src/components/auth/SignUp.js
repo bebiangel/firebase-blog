@@ -18,11 +18,18 @@ class SignUp extends Component {
     };
   }
 
+  handleChange = e => {
+    this.setState({
+      [e.target.id]: e.target.value
+    });
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
+        console.log(this.state);
         this.props.signUp(this.state);
       }
     });
@@ -48,6 +55,7 @@ class SignUp extends Component {
               id="email"
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="Email"
+              onChange={this.handleChange}
             />
           )}
         </FormItem>
@@ -61,6 +69,7 @@ class SignUp extends Component {
               prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
               type="password"
               placeholder="Password"
+              onChange={this.handleChange}
             />
           )}
         </FormItem>
@@ -75,6 +84,7 @@ class SignUp extends Component {
               id="firstName"
               prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="First Name"
+              onChange={this.handleChange}
             />
           )}
         </FormItem>
@@ -87,6 +97,7 @@ class SignUp extends Component {
               id="lastName"
               prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="Last Name"
+              onChange={this.handleChange}
             />
           )}
         </FormItem>

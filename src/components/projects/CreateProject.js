@@ -29,6 +29,7 @@ class CreateProject extends Component {
       if (!err) {
         console.log("Received values of form: ", values);
         this.props.createProject(values);
+        this.props.history.push("/");
       }
     });
   };

@@ -7,6 +7,7 @@ import { Menu, Avatar } from "antd";
 
 const SignedInLinks = props => {
   //
+  const { profile } = props;
   return (
     <Menu
       theme="dark"
@@ -24,7 +25,7 @@ const SignedInLinks = props => {
         </Link>
       </Menu.Item>
       <Menu.Item key="3">
-        <Avatar size="large">NN</Avatar>
+        <Avatar size="large">{profile.initials}</Avatar>
       </Menu.Item>
     </Menu>
   );

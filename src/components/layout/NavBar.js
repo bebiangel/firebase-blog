@@ -10,9 +10,13 @@ const { Header } = Layout;
 
 const NavBar = props => {
   //
-  const { auth } = props;
+  const { auth, profile } = props;
   console.log(auth);
-  const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />;
+  const links = auth.uid ? (
+    <SignedInLinks profile={profile} />
+  ) : (
+    <SignedOutLinks />
+  );
   return (
     <Header className="header">
       <div />
@@ -32,11 +36,10 @@ const NavBar = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth
-  };
-};
+const mapStateToProps = state => ({
+  auth: state.firebase.auth,
+  profile: state.firebase.profile
+});
 
 export default connect(
   mapStateToProps,

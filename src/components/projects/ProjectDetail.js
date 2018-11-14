@@ -4,16 +4,7 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
-
-const item = {
-  href: "http://ant.design",
-  title: `ant design part `,
-  avatar: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-  description:
-    "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-  content:
-    "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently."
-};
+import moment from "moment";
 
 const IconText = ({ type, text }) => (
   <span>
@@ -43,9 +34,20 @@ const ProjectDetails = props => {
           >
             <List.Item.Meta
               title={`${project.title} - ${project.id}`}
-              description={project.description}
+              description={project.content}
             />
-            {project.content}
+            <div>
+              <p style={{ fontSize: "0.5rem" }}>
+                Posted by {project.authorFirstName} {project.authorLastName}
+              </p>
+            </div>
+            <div>
+              <p style={{ fontSize: "0.4rem", color: "black" }}>
+                {project &&
+                  project.createdAt &&
+                  moment(project.createdAt.toDate()).calendar()}
+              </p>
+            </div>
           </List.Item>
         </Col>
       </Row>

@@ -12,32 +12,28 @@ class Dashboard extends Component {
   //
   render() {
     //
-    const { projects, auth } = this.props;
+    const { projects, auth, notifications } = this.props;
     if (!auth.uid) {
       return <Redirect to="/signin" />;
     }
     return (
       <Row>
         <Col span={12}>
-          <h2>왼쪽영역</h2>
           <ProjectList projects={projects} />
         </Col>
         <Col span={12}>
-          <h2>오른쪽영역</h2>
-          <Notifications />
+          <Notifications notifications={notifications} />
         </Col>
       </Row>
     );
   }
 }
 
-const mapStateToProps = state => {
-  console.log(state);
-  return {
-    projects: state.firestore.ordered.projects,
-    auth: state.firebase.auth
-  };
-};
+const mapStateToProps = state => ({
+  projects: state.firestore.ordered.projects,
+  auth: state.firebase.auth,
+  notifications: state.firestore.ordered.notification
+});
 
 const mapDispatchToProps = dispatch => ({});
 
@@ -46,5 +42,8 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   ),
-  firestoreConnect([{ collection: "projects" }])
+  firestoreConnect([
+    { collection: "projects", orderBy: ["createdAt", "desc"] },
+    { collection: "notification", limit: 3, orderBy: ["time", "desc"] }
+  ])
 )(Dashboard);
