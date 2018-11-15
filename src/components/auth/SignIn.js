@@ -25,13 +25,13 @@ class SignUp extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.signIn(this.state);
-    // this.props.form.validateFields((err, values) => {
-    //   if (!err) {
-    //     console.log("Received values of form: ", values);
-    //     this.props.signIn(values);
-    //   }
-    // });
+
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log("Received values of form: ", values);
+        this.props.signIn(this.state);
+      }
+    });
   };
 
   render() {
@@ -74,13 +74,14 @@ class SignUp extends Component {
         </FormItem>
 
         <FormItem>
-          {getFieldDecorator("remember", {
+          {/*  {getFieldDecorator("remember", {
             valuePropName: "checked",
             initialValue: true
           })(<Checkbox>Remember me</Checkbox>)}
           <a style={{ float: "right" }} href="">
             Forgot password
           </a>
+        */}
           <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
             Log in
           </Button>

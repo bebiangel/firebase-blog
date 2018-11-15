@@ -29,7 +29,6 @@ class SignUp extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
-        console.log(this.state);
         this.props.signUp(this.state);
       }
     });
@@ -82,7 +81,6 @@ class SignUp extends Component {
           })(
             <Input
               id="firstName"
-              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="First Name"
               onChange={this.handleChange}
             />
@@ -95,7 +93,6 @@ class SignUp extends Component {
           })(
             <Input
               id="lastName"
-              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="Last Name"
               onChange={this.handleChange}
             />

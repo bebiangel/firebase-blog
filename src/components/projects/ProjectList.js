@@ -23,7 +23,6 @@ const ProjectList = ({ projects }) => {
         </div>
       }
       renderItem={project => {
-        console.log(moment(project.createdAt).toDate());
         return (
           <List.Item
             key={project.title}
