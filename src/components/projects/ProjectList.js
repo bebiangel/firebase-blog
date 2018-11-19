@@ -10,7 +10,7 @@ const IconText = ({ type, text }) => (
   </span>
 );
 
-const ProjectList = ({ projects }) => {
+const ProjectList = ({ projects, auth, handleDelete }) => {
   //
   return (
     <List
@@ -29,7 +29,10 @@ const ProjectList = ({ projects }) => {
             actions={[
               <IconText type="star-o" text="156" />,
               <IconText type="like-o" text="156" />,
-              <IconText type="message" text="2" />
+              <IconText type="message" text="2" />,
+              auth.uid === project.authorId && (
+                <Icon type="delete" onClick={() => handleDelete(project.id)} />
+              )
             ]}
           >
             <Link to={`/project/${project.id}`} key={project.id}>
