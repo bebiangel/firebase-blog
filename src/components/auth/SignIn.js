@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { Form, Icon, Input, Button, Checkbox } from "antd";
-import { signIn } from "../../store/actions/authActions";
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
+import {Button, Form, Icon, Input} from "antd";
+import {signIn} from "../../store/actions/authActions";
 
 const FormItem = Form.Item;
 
